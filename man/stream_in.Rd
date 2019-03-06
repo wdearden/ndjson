@@ -4,17 +4,13 @@
 \alias{stream_in}
 \title{Stream in & flatten an ndjson file into a \code{tbl_dt}}
 \usage{
-stream_in(path, cls = c("dt", "tbl"))
+stream_in(path)
 }
 \arguments{
 \item{path}{path to file (supports "\code{gz}" files)}
-
-\item{cls}{the package uses \code{data.table::rbindlist} for speed but
-that's not always the best return type for everyone, so you have
-option of keeping it a \code{tbl_dt} via "\code{dt}" or converting it to a \code{tbl}}
 }
 \value{
-\code{tbl_dt} or \code{tbl} or {data.frame}
+A \code{data.table}
 }
 \description{
 Given a file of streaming JSON (ndjson) this function reads in the records

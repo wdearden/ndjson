@@ -6,6 +6,4 @@
 #' @useDynLib ndjson, .registration=TRUE
 #' @importFrom Rcpp sourceCpp
 #' @importFrom data.table rbindlist
-#' @importFrom dtplyr tbl_dt
-#' @importFrom dplyr tbl_df
 NULL

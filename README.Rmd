@@ -1,9 +1,6 @@
 ---
 output: rmarkdown::github_document
 ---
-[![Travis-CI Build Status](https://travis-ci.org/hrbrmstr/ndjson.svg)](https://travis-ci.org/hrbrmstr/ndjson) 
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/ndjson)](https://cran.r-project.org/package=ndjson)  ![downloads](http://cranlogs.r-pkg.org/badges/grand-total/ndjson)
-
 
 # `ndjson` 
 
@@ -131,11 +128,11 @@ flatten('{"top":{"next":{"final":1,"end":true},"another":"yes"},"more":"no"}')
 f <- system.file("extdata", "test.json", package="ndjson")
 gzf <- system.file("extdata", "testgz.json.gz", package="ndjson")
 
-dplyr::glimpse(ndjson::stream_in(f))
-dplyr::glimpse(ndjson::stream_in(gzf))
+head(ndjson::stream_in(f))
+head(ndjson::stream_in(gzf))
 
-dplyr::glimpse(jsonlite::stream_in(file(f), flatten=TRUE, verbose=FALSE))
-dplyr::glimpse(jsonlite::stream_in(gzfile(gzf), flatten=TRUE, verbose=FALSE))
+head(jsonlite::stream_in(file(f), flatten=TRUE, verbose=FALSE))
+head(jsonlite::stream_in(gzfile(gzf), flatten=TRUE, verbose=FALSE))
 
 microbenchmark(
     ndjson={ ndjson::stream_in(f) },
@@ -158,12 +155,6 @@ library(testthat)
 date()
 
 test_dir("tests/")
-```
-
-## ndjson Metrics
-
-```{r echo=FALSE}
-cloc::cloc_pkg_md()
 ```
 
 ## Code of Conduct

@@ -5,10 +5,7 @@
 #'
 #' @md
 #' @param path path to file (supports "\code{gz}" files)
-#' @param cls the package uses \code{data.table::rbindlist} for speed but
-#'        that's not always the best return type for everyone, so you have
-#'        option of keeping it a `tbl_dt` via "`dt`" or converting it to a `tbl`
-#' @return \code{tbl_dt} or \code{tbl} or \{data.frame}
+#' @return A \code{data.table}
 #' @export
 #' @references \url{http://ndjson.org/}
 #' @examples
@@ -17,11 +14,9 @@
 #'
 #' gzf <- system.file("extdata", "testgz.json.gz", package="ndjson")
 #' nrow(stream_in(gzf))
-stream_in <- function(path, cls = c("dt", "tbl")) {
-  cls <- match.arg(cls, c("dt", "tbl"))
+stream_in <- function(path) {
   tmp <- stream_in_int(path.expand(path))
-  tmp <- dtplyr::tbl_dt(data.table::rbindlist(tmp, fill=TRUE))
-  if (cls == "tbl") dplyr::tbl_df(tmp) else tmp
+  tmp <- data.table::rbindlist(tmp, fill=TRUE)
 }
 
 #' Validate ndjson file
@@ -50,16 +45,11 @@ validate <- function(path, verbose=FALSE) {
 #'
 #' @md
 #' @param x character vector of individual JSON lines to flatten
-#' @param cls the package uses \code{data.table::rbindlist} for speed but
-#'        that's not always the best return type for everyone, so you have
-#'        option of keeping it a `tbl_dt` via "`dt`" or converting it to a `tbl`
-#' @return \code{tbl_dt} or \code{tbl} or \{data.frame}
+#' @return A \code{data.table}
 #' @export
 #' @examples
 #' flatten('{"top":{"next":{"final":1,"end":true},"another":"yes"},"more":"no"}')
-flatten <- function(x, cls = c("dt", "tbl")) {
-  cls <- match.arg(cls, c("dt", "tbl"))
+flatten <- function(x) {
   tmp <- flatten_int(x)
-  tmp <- dtplyr::tbl_dt(data.table::rbindlist(tmp, fill=TRUE))
-  if (cls == "tbl") dplyr::tbl_df(tmp) else tmp
+  tmp <- data.table::rbindlist(tmp, fill=TRUE)
 }
